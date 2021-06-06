@@ -2,11 +2,11 @@ import React from 'react';
 
 import { Container } from './styles';
 
-function FormInput({height = '200px', width = '200px', placeholder = "Email", icon}) {
+function FormInput({height = '200px', width = '200px', placeholder = "Email", icon, type = "text"}) {
   return (
     <Container height={height} width={width}>
-         <i className="fa fa-user icon"></i>
-        <input type="text" placeholder={placeholder}></input>
+         {icon}
+        <input type={type} placeholder={placeholder} ></input>
     </Container>
   );
 }

@@ -11,7 +11,7 @@ export const Container = styled.div`
         color: black;
         min-width: 50px;
         text-align: center;
-        background: ${props => props.theme.gray};
+        background: ${props => props.theme.white};
         border-radius: 5px 0 0 5px;
         height: ${props => props.height};
         justify-content: center;
@@ -19,7 +19,7 @@ export const Container = styled.div`
     }
 
     & input {
-        background: ${props => props.theme.gray};
+        background: ${props => props.theme.white};
         width: ${props => props.width};
         height: ${props => props.height};
         padding: 10px;
