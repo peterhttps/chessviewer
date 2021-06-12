@@ -35,7 +35,7 @@ function Login() {
               />
               <FormButton>Login</FormButton>
 
-              <Link to="/register">Don’t have an account? Register now for free! &#x2794;</Link>
+              <Link to="/register">Don’t have an account? Register now for free! &#x2192;</Link>
             </FormArea>
             <img src={loginImage} alt="login"/>
           </LoginBox>

@@ -42,7 +42,7 @@ function Register() {
               />
               <FormButton>Register</FormButton>
 
-              <Link to="/register">Don’t have an account? Register now for free!</Link>
+              <Link to="/login">&#x2190; Have an account? Login here</Link>
             </FormArea>
           </LoginBox>
         </Container>

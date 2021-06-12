@@ -39,7 +39,7 @@ export const FormArea = styled.div`
     }
 
     & a {
-        color: ${props => props.theme.gray};
+        color: ${props => props.theme.black};
         text-decoration: none;
         margin-top: 2rem;
         font-size: .9rem;
