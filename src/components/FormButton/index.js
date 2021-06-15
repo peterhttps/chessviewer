@@ -2,9 +2,9 @@ import React from 'react';
 
 import { Button } from './styles';
 
-function FormButton({children}) {
+function FormButton({children, onClick}) {
   return (
-    <Button>
+    <Button onClick={onClick}>
         {children}
     </Button>
   );
