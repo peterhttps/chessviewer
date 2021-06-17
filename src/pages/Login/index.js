@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 import { Container, Wrapper, LoginBox, FormArea, LogoContainer } from './styles';
 
@@ -12,6 +13,8 @@ import { loginUser } from '../../services/user';
 
 function Login() {
 
+  const history = useHistory();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -20,6 +23,7 @@ function Login() {
 
     if (status === 200) {
       localStorage.setItem("token", "Bearer ".concat(data.token));
+      history.push('/');
     }
   }
 

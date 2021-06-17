@@ -14,7 +14,7 @@ const Routes = () => (
             <Route exact path="/" component={HomePage} />
             <Route exact path="/login" component={LoginPage} />
             <Route exact path="/register" component={RegisterPage} />
-            <Route exact path="/viewer" component={ViewerPage} />
+            <Route exact path="/game/:id" component={ViewerPage} />
 
         </Switch>
     </BrowserRouter>
