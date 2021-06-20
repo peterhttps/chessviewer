@@ -9,7 +9,7 @@ import FormButton from '../../components/FormButton';
 
 import loginImage from '../../assets/images/loginImage.jpg';
 import Logo from '../../components/Logo';
-import { loginUser } from '../../services/user';
+import { getUser, loginUser } from '../../services/user';
 
 function Login() {
 
@@ -19,10 +19,16 @@ function Login() {
   const [password, setPassword] = useState('');
 
   const handleLogin = async () => {
-    const { data, status } = await loginUser(email, password);
+    let { data, status } = await loginUser(email, password);
 
     if (status === 200) {
-      localStorage.setItem("token", "Bearer ".concat(data.token));
+      localStorage.setItem("token", "Bearer ".concat(data.token));      
+
+      const user = await getUser();
+
+      localStorage.setItem("nome", user.data.Nome);      
+      localStorage.setItem("email", user.data.Email);      
+
       history.push('/');
     }
   }
@@ -41,14 +47,14 @@ function Login() {
                 width="230px" 
                 height="30px" 
                 placeholder="Email" 
-                icon={<i class="fa fa-envelope-o" aria-hidden="true"></i>}
+                icon={<i className="fa fa-envelope-o" aria-hidden="true"></i>}
                 onChange={setEmail}
               />
               <FormInput 
                 width="230px" 
                 height="30px" 
                 placeholder="Password"
-                icon={<i class="fa fa-lock" aria-hidden="true"></i>}
+                icon={<i className="fa fa-lock" aria-hidden="true"></i>}
                 type="password"
                 onChange={setPassword}
               />

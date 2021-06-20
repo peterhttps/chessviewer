@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Chessboard from "react-simple-chessboard";
 import useChess from "react-chess.js";
+import { useHistory } from "react-router-dom";
 
 import { 
   Container, 
@@ -30,7 +31,15 @@ import { useParams } from 'react-router-dom';
 import { useCallback } from 'react';
 
 function Viewer() {
+  const history = useHistory();
+
+
   const [moves, setMoves] = useState(["e4", "e5", "Nf3", "Nc6"]);
+  const [whitePlayer, setWhitePlayer] = useState("loading");
+  const [blackPlayer, setBlackPlayer] = useState("loading");
+  const [abertura, setAbertura] = useState("loading");
+  const [dateEvent, setDateEvent] = useState("loading");
+
   const movementMatrix = useRef([]);
   let { id } = useParams();
 
@@ -42,17 +51,27 @@ function Viewer() {
   const getMatch = useCallback(async () => {
     const { data } = await getMatchById(id);
 
-    setMoves(data);
+    if (data.Movimentos === undefined) {
+      history.push("/");
+    }
 
+    setMoves(data.Movimentos);
+    setWhitePlayer(data.Jogador_Brancas);
+    setBlackPlayer(data.Jogador_Pretas);
+    setBlackPlayer(data.Jogador_Pretas);
+    setAbertura(data.Nome_Abertura);
+    const yearDate = new Date(data.DataEvento);
+    setDateEvent(yearDate.toLocaleDateString());
+ 
     let count = 1;
 
-    data.forEach((element, index) => {
+    data.Movimentos.forEach((element, index) => {
       movementMatrix.current.push(count);
       if (index % 2 === 0) count += 1;
     });
 
     setLoading(false);
-  }, [id]);
+  }, [history, id]);
 
   useEffect(() => {
     getMatch();
@@ -87,16 +106,16 @@ function Viewer() {
             <TitleContainer>
               <TitlePiecesContainer>
                 <img src={blackPiece} alt="blackPiece" />
-                <TitleText>Hitler vs Gandhi</TitleText>
+                <TitleText>{blackPlayer} vs {whitePlayer}</TitleText>
                 <img src={whitePiece} alt="whitePiece" />
               </TitlePiecesContainer>
 
-              <DateText>20/10/2000</DateText>
+              <DateText>{dateEvent}</DateText>
             </TitleContainer>
             
             <MiddleContainer>
               <OpeningText>
-                Abertura Italiana
+                {abertura}
               </OpeningText>
               <MovementBoard>
 
@@ -134,9 +153,8 @@ function Viewer() {
                   }
 
                   return (
-                    <div></div>
+                    <div key={index}></div>
                   )
-
                 })}
 
               </MovementBoard>
@@ -162,7 +180,7 @@ function Viewer() {
 
                 }}
               >
-                {"plei"}
+                {isPlaying ? "palze" : "plei"}
               </button>
               <button
                 onClick={() => {

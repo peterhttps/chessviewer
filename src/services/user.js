@@ -1,5 +1,14 @@
 import api from './api';
 
+const getUser = (email, password) => {
+  const token = localStorage.getItem('token');
+
+  return api.get('/user/profile', {
+    headers: {
+      authorization: token
+    }});
+}
+
 const registerUser = (email, nome, password) => {
   return api.post('/register', {
     Email: email,
@@ -17,5 +26,6 @@ const loginUser = (email, password) => {
 
 export {
   loginUser,
-  registerUser
+  registerUser,
+  getUser
 }

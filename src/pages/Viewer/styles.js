@@ -36,11 +36,12 @@ export const TitleContainer = styled.div`
 export const TitlePiecesContainer = styled.div`
     display: flex;
     justify-content: space-between;
-
+    align-items: center;
 `;
 
 export const TitleText = styled.h1`
     color: ${props => props.theme.gray};
+    font-size: 1.4rem;
 `;
 
 export const DateText = styled.p`

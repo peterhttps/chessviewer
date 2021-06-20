@@ -8,7 +8,7 @@ import homeImage from '../../assets/images/homeImage.png';
 function Home() {
   return (
     <Container>
-        <Header />
+        <Header window="Home" />
         <Body>
           <Title>
             Search and Study the Greatest Chess Games <br /> of All Time!
