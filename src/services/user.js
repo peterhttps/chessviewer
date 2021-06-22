@@ -24,8 +24,22 @@ const loginUser = (email, password) => {
   })
 }
 
+const addFavorite = (id) => {
+  const token = localStorage.getItem('token');
+  const headers = {
+    'Authorization': token
+  }
+
+  return api.post('/partidas/favoritar', {
+    idPartida: id
+  }, {
+    headers: headers
+  })
+}
+
 export {
   loginUser,
   registerUser,
-  getUser
+  getUser,
+  addFavorite
 }

@@ -109,3 +109,18 @@ export const ButtonsContainer = styled.div`
 
 `;
 
+export const FavoriteButton = styled.button`
+  background: none;
+  border: 1px solid #FFB800;
+  color: ${props => props.theme.white};
+  border-radius: 20px;
+  padding: .3rem 2rem;
+  margin-top: 1rem;
+  cursor: pointer;
+  transition: .2s;
+
+  &:hover {
+    background: #FFB800;
+    color: ${props => props.theme.background};
+  }
+`;

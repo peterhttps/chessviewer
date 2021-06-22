@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Chessboard from "react-simple-chessboard";
 import useChess from "react-chess.js";
 import { useHistory } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
 
 import { 
   Container, 
@@ -18,7 +19,8 @@ import {
   MovementNumber,
   MovementLine,
   MovementCell,
-  ButtonsContainer
+  ButtonsContainer,
+  FavoriteButton
 } from './styles';
 import Header from '../../components/Header';
 
@@ -29,16 +31,17 @@ import whitePiece from '../../assets/images/white.png';
 import { useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { useCallback } from 'react';
+import { addFavorite } from '../../services/user';
 
 function Viewer() {
   const history = useHistory();
-
 
   const [moves, setMoves] = useState(["e4", "e5", "Nf3", "Nc6"]);
   const [whitePlayer, setWhitePlayer] = useState("loading");
   const [blackPlayer, setBlackPlayer] = useState("loading");
   const [abertura, setAbertura] = useState("loading");
   const [dateEvent, setDateEvent] = useState("loading");
+  const [gameID, setGameID] = useState(1);
 
   const movementMatrix = useRef([]);
   let { id } = useParams();
@@ -54,6 +57,11 @@ function Viewer() {
     if (data.Movimentos === undefined) {
       history.push("/");
     }
+    
+    const url =  window.location.href;
+    const lastSegment = url.split("/").pop();
+
+    setGameID(lastSegment);
 
     setMoves(data.Movimentos);
     setWhitePlayer(data.Jogador_Brancas);
@@ -69,7 +77,6 @@ function Viewer() {
       movementMatrix.current.push(count);
       if (index % 2 === 0) count += 1;
     });
-
     setLoading(false);
   }, [history, id]);
 
@@ -78,6 +85,22 @@ function Viewer() {
 
   }, [getMatch]);
 
+  const handleFavorite = async () => {
+    const { status, data } = await addFavorite(gameID); 
+
+    if (status === 200) {
+      toast.success(data, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+   
+  }
 
   useEffect(() => {
     if (isPlaying) {
@@ -96,6 +119,7 @@ function Viewer() {
 
   return (
     <Container>
+        <ToastContainer />
         <Header />
         <Body>
           <BoardContainer>
@@ -111,6 +135,9 @@ function Viewer() {
               </TitlePiecesContainer>
 
               <DateText>{dateEvent}</DateText>
+              <FavoriteButton onClick={() => handleFavorite()}>
+                Favoritar
+              </FavoriteButton>
             </TitleContainer>
             
             <MiddleContainer>
