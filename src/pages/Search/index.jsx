@@ -1,7 +1,13 @@
 import React, { useRef, useState } from "react";
 
 import Header from "../../components/Header";
-import { Wrapper, MainContent, SearchBar, SearchResults, SearchResultDiv } from "./styles";
+import {
+  Wrapper,
+  MainContent,
+  SearchBar,
+  SearchResults,
+  SearchResultDiv,
+} from "./styles";
 
 import { BsSearch } from "react-icons/bs";
 import { MdPageview } from "react-icons/md";
@@ -16,7 +22,7 @@ const SearchPage = () => {
       numberOfMoves: 32,
       date: "21/02/1998",
       opening: "Scicilian",
-      score: "1-0"
+      score: "1-0",
     },
     {
       title: "A vs B",
@@ -24,29 +30,69 @@ const SearchPage = () => {
       numberOfMoves: 32,
       date: "21/02/1998",
       opening: "Scicilian",
-      score: "1-0"
-    }
+      score: "1-0",
+    },
+    {
+      title: "A vs B",
+      place: "Malásia",
+      numberOfMoves: 32,
+      date: "21/02/1998",
+      opening: "Scicilian",
+      score: "1-0",
+    },
+    {
+      title: "A vs B",
+      place: "Malásia",
+      numberOfMoves: 32,
+      date: "21/02/1998",
+      opening: "Scicilian",
+      score: "1-0",
+    },
+    {
+      title: "A vs B",
+      place: "Malásia",
+      numberOfMoves: 32,
+      date: "21/02/1998",
+      opening: "Scicilian",
+      score: "1-0",
+    },
+    {
+      title: "A vs B",
+      place: "Malásia",
+      numberOfMoves: 32,
+      date: "21/02/1998",
+      opening: "Scicilian",
+      score: "1-0",
+    },
+    {
+      title: "A vs B",
+      place: "Malásia",
+      numberOfMoves: 32,
+      date: "21/02/1998",
+      opening: "Scicilian",
+      score: "1-0",
+    },
   ]);
   const inputRef = useRef(null);
 
   const handleSearch = () => {
     console.info(inputRef.current?.value);
-  }
+  };
 
   return (
     <Wrapper>
       <Header />
       <MainContent>
         <SearchBar>
-          <input placeholder="Search for games here" ref={inputRef}/>
+          <input placeholder="Search for games here" ref={inputRef} />
           <button onClick={handleSearch}>
             <BsSearch size={20} />
           </button>
         </SearchBar>
 
         <SearchResults>
-          {
-            searchResults.map(result => (
+          {searchResults.length ? (
+            searchResults.map((result) => (
               <SearchResultDiv>
                 <div id="general-info">
                   <h2 id="players">{result.title}</h2>
@@ -60,10 +106,22 @@ const SearchPage = () => {
                 </div>
                 <MdPageview size={50} />
               </SearchResultDiv>
-              )
-            )
-          }
-          
+            ))
+          ) : (
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                height: "500px",
+                letterSpacing: "3px",
+              }}
+            >
+              <i>
+                <p style={{ color: "#fff" }}>No results ...</p>
+              </i>
+            </div>
+          )}
         </SearchResults>
 
         <img

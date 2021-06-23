@@ -18,7 +18,7 @@ export const MainContent = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 100px 0 0;
+  margin: 65px 0 0;
   height: calc(100% - 97px);
   width: 100%;
 
@@ -66,7 +66,7 @@ export const SearchBar = styled.div`
     justify-content: center;
     transition: 0.2s ease-in-out;
 
-    &:hover{
+    &:hover {
       background-color: #6da100;
       color: #e0e0e0;
     }
@@ -75,17 +75,39 @@ export const SearchBar = styled.div`
 
 export const SearchResults = styled.div`
   box-sizing: border-box;
+  overflow-y: scroll;
   width: 80%;
   max-width: 1200px;
+  max-height: 590px;
   display: flex;
   flex-direction: column;
   z-index: 2;
+
+  /* width */
+  ::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: none;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
 `;
 
 export const SearchResultDiv = styled.div`
   box-sizing: border-box;
   width: 100%;
-  background-color: #2D2D2D;
+  background-color: #2d2d2d;
   color: #fff;
   display: flex;
   justify-content: space-between;
@@ -122,7 +144,7 @@ export const SearchResultDiv = styled.div`
 
   svg {
     margin-top: 0.5rem;
-    color: #F3F3F3;
+    color: #f3f3f3;
     cursor: pointer;
     transition: 0.2s ease-in-out;
 
