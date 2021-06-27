@@ -1,4 +1,5 @@
 import React, { useRef, useState } from "react";
+import { useHistory } from "react-router-dom";
 
 import Header from "../../components/Header";
 import {
@@ -13,70 +14,23 @@ import { BsSearch } from "react-icons/bs";
 import { MdPageview } from "react-icons/md";
 
 import lowOpacityChessboard from "../../assets/images/lowOpacityChessboard.png";
+import api from "../../services/api";
 
 const SearchPage = () => {
-  const [searchResults, setSearchResults] = useState([
-    {
-      title: "A vs B",
-      place: "Malásia",
-      numberOfMoves: 32,
-      date: "21/02/1998",
-      opening: "Scicilian",
-      score: "1-0",
-    },
-    {
-      title: "A vs B",
-      place: "Malásia",
-      numberOfMoves: 32,
-      date: "21/02/1998",
-      opening: "Scicilian",
-      score: "1-0",
-    },
-    {
-      title: "A vs B",
-      place: "Malásia",
-      numberOfMoves: 32,
-      date: "21/02/1998",
-      opening: "Scicilian",
-      score: "1-0",
-    },
-    {
-      title: "A vs B",
-      place: "Malásia",
-      numberOfMoves: 32,
-      date: "21/02/1998",
-      opening: "Scicilian",
-      score: "1-0",
-    },
-    {
-      title: "A vs B",
-      place: "Malásia",
-      numberOfMoves: 32,
-      date: "21/02/1998",
-      opening: "Scicilian",
-      score: "1-0",
-    },
-    {
-      title: "A vs B",
-      place: "Malásia",
-      numberOfMoves: 32,
-      date: "21/02/1998",
-      opening: "Scicilian",
-      score: "1-0",
-    },
-    {
-      title: "A vs B",
-      place: "Malásia",
-      numberOfMoves: 32,
-      date: "21/02/1998",
-      opening: "Scicilian",
-      score: "1-0",
-    },
-  ]);
+  const history = useHistory();
+  const [searchResults, setSearchResults] = useState([]);
   const inputRef = useRef(null);
 
-  const handleSearch = () => {
-    console.info(inputRef.current?.value);
+  const handleSearch = async () => {
+    const params = {
+      searchParam: inputRef.current?.value,
+    };
+
+    const response = await api.post("partidas/procurar", params);
+    if (response.data !== "Nenhuma partida encontrada") {
+      // setSearchResults(response.data);
+      console.log(response.data);
+    }
   };
 
   return (
@@ -95,16 +49,21 @@ const SearchPage = () => {
             searchResults.map((result) => (
               <SearchResultDiv>
                 <div id="general-info">
-                  <h2 id="players">{result.title}</h2>
-                  <p id="place">{result.place}</p>
-                  <p id="moves">{result.numberOfMoves}</p>
-                  <p id="date">{result.date}</p>
+                  <h2 id="players">{`${result.Jogador_Brancas} vs ${result.Jogador_Pretas}`}</h2>
+                  <p id="place">{result.Website}</p>
+                  <p id="moves">{result.Quantidade_Movimentos}</p>
+                  <p id="date">{result.DataEvento.split("T")[0]}</p>
                 </div>
                 <div id="opening-and-result">
-                  <p id="Opening">{result.opening}</p>
-                  <h1 id="score">{result.score}</h1>
+                  <p id="Opening">{result.Nome_Abertura}</p>
+                  <h1 id="score">{result.Resultado}</h1>
                 </div>
-                <MdPageview size={50} />
+                <MdPageview
+                  size={50}
+                  onClick={() => {
+                    history.push("/search/" + result.Id);
+                  }}
+                />
               </SearchResultDiv>
             ))
           ) : (
