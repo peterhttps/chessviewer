@@ -19,7 +19,7 @@ const getMatchById = (id) => {
     'Authorization': token
   }
 
-  return api.get(`/partidas/procurar/${id}`, {
+  return api.post(`/partidas/procurar/${id}`, {} ,{
     headers: headers
   })
 }
