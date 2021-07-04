@@ -38,6 +38,24 @@ export const SearchBar = styled.div`
   margin-bottom: 2rem;
   z-index: 2;
 
+  div {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff200;
+    background-color: #414141;
+    padding: 0 20px;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    transition: all 0.2s ease-in-out;
+    &:hover {
+      background-color: #454545;
+      color: #a8a000;
+    }
+  }
+
   input {
     box-sizing: border-box;
     width: 100%;

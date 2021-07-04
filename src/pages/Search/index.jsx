@@ -12,6 +12,7 @@ import {
 
 import { BsSearch } from "react-icons/bs";
 import { MdPageview } from "react-icons/md";
+import { AiFillStar } from "react-icons/ai";
 
 import lowOpacityChessboard from "../../assets/images/lowOpacityChessboard.png";
 import api from "../../services/api";
@@ -26,13 +27,28 @@ const SearchPage = () => {
       searchParam: inputRef.current?.value,
     };
 
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     const headers = {
-      'Authorization': token
-    }
+      Authorization: token,
+    };
 
     const response = await api.post("partidas/procurar", params, {
-      headers: headers
+      headers: headers,
+    });
+    if (response.data !== "Nenhuma partida encontrada") {
+      setSearchResults(response.data);
+      console.log(response.data);
+    }
+  };
+
+  const handleSearchFavorites = async () => {
+    const token = localStorage.getItem("token");
+    const headers = {
+      Authorization: token,
+    };
+
+    const response = await api.get("partidas/favoritas", {
+      headers: headers,
     });
     if (response.data !== "Nenhuma partida encontrada") {
       setSearchResults(response.data);
@@ -46,6 +62,9 @@ const SearchPage = () => {
       <MainContent>
         <SearchBar>
           <input placeholder="Search for games here" ref={inputRef} />
+          <div onClick={handleSearchFavorites}>
+            <AiFillStar size={20} />
+          </div>
           <button onClick={handleSearch}>
             <BsSearch size={20} />
           </button>
