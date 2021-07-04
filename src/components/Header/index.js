@@ -66,7 +66,7 @@ function Header({window}) {
                       <IoMdAdd color={"#F1E8DC"} size={24} />
                   </TabButton>
                 }
-                <TabButton selected={window === 'Search'} onClick={() => history.push("/")}>
+                <TabButton selected={window === 'Search'} onClick={() => history.push("/search")}>
                     <FiSearch color={"#F1E8DC"} size={24} />
                 </TabButton>
             </IconArea>

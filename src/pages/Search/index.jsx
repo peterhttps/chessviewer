@@ -26,16 +26,23 @@ const SearchPage = () => {
       searchParam: inputRef.current?.value,
     };
 
-    const response = await api.post("partidas/procurar", params);
+    const token = localStorage.getItem('token');
+    const headers = {
+      'Authorization': token
+    }
+
+    const response = await api.post("partidas/procurar", params, {
+      headers: headers
+    });
     if (response.data !== "Nenhuma partida encontrada") {
-      // setSearchResults(response.data);
+      setSearchResults(response.data);
       console.log(response.data);
     }
   };
 
   return (
     <Wrapper>
-      <Header />
+      <Header window="Search" />
       <MainContent>
         <SearchBar>
           <input placeholder="Search for games here" ref={inputRef} />
@@ -61,7 +68,7 @@ const SearchPage = () => {
                 <MdPageview
                   size={50}
                   onClick={() => {
-                    history.push("/search/" + result.Id);
+                    history.push("/game/" + result.Id);
                   }}
                 />
               </SearchResultDiv>
